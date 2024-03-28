@@ -17,40 +17,35 @@ Git hooks provide a way to fire off custom scripts on different events such as d
 ## Purpose
 Git hooks are used for various purposes to automate tasks, enforce policies, or customize the behavior of Git workflows.Git Hooks enable developers to streamline their workflow, ensure code quality, and enforce project-specific policies. Here are some common reasons why developers use Git hooks:
 
-1. Enforcing Code Quality: Git hooks can be used to run static code analysis tools, linters, or code formatters before allowing a commit. This ensures that code adheres to coding standards and best practices.
-
-2. Preventing Bad Commits: Hooks can be used to perform pre-commit checks, such as checking for debugging statements, trailing whitespaces, or large files, and preventing commits that violate these rules.
-
-3. Automating Tests: Hooks can trigger automated tests before allowing a commit or push. This ensures that code changes do not break existing functionality or introduce regressions.
-
-4. Integration with Issue Trackers: Hooks can be used to extract issue or ticket numbers from commit messages and automatically update issue trackers or generate release notes.
-
-5. Deployment Automation: Post-receive hooks can trigger deployment scripts to automatically deploy changes to staging or production environments after they have been pushed to the repository.
-
-6. Custom Workflows: Git hooks can be used to enforce custom workflows or policies specific to the development team or project, such as enforcing code review processes or performing environment-specific configurations.
-
-
+| Task Description                                            | Examples of Usage                                                                                       |
+|:-------------------------------------------------------------:|--------------------------------------------------------------------------------------------------------|
+| **Enforcing Code Quality**                                    | Git hooks can be used to run static code analysis tools, linters, or code formatters before allowing a commit. This ensures that code adheres to coding standards and best practices.|
+| **Preventing Bad Commits**                                    | Hooks can be used to perform pre-commit checks, such as checking for debugging statements, trailing whitespaces, or large files, and preventing commits that violate these rules.|
+| **Automating Tests**                                         | Hooks can trigger automated tests before allowing a commit or push. This ensures that code changes do not break existing functionality or introduce regressions.|
+| **Integration with Issue Trackers**                          | Hooks can be used to extract issue or ticket numbers from commit messages and automatically update issue trackers or generate release notes.|
+| **Deployment Automation**                                  | Post-receive hooks can trigger deployment scripts to automatically deploy changes to staging or production environments after they have been pushed to the repository.|
+| **Custom Workflows**                                        | Git hooks can be used to enforce custom workflows or policies specific to the development team or project, such as enforcing code review processes or performing environment-specific configurations.|
 
 ## TYPES OF GIT HOOKS
 
 ### Client-Side Hooks
 | Hook Name         | Description                                                     |
-|-------------------|-----------------------------------------------------------------|
-| pre-commit        | Check the commit message for spelling errors                    |
-| prepare-commit-msg| Enforce project coding standards                                |
-| commit-msg        | Update commit message, enforce guidelines                       |
-| post-commit       | Email/SMS team members of a new commit                          |
-| post-checkout     | Perform cleanup tasks after a branch checkout                   |
-| pre-rebase        | Execute actions before starting a rebase operation               |
+|:-------------------:|-----------------------------------------------------------------|
+| **pre-commit**        | Check the commit message for spelling errors                    |
+| **prepare-commit-msg**| Enforce project coding standards                                |
+| **commit-msg**        | Update commit message, enforce guidelines                       |
+| **post-commit**       | Email/SMS team members of a new commit                          |
+| **post-checkout**     | Perform cleanup tasks after a branch checkout                   |
+| **pre-rebase**        | Execute actions before starting a rebase operation               |
 
 ### Server-Side Hooks
 
 
 | Hook Name         | Description                                                     |
-|-------------------|-----------------------------------------------------------------|
-| pre-receive       | Accept or reject entire pushes based on predefined conditions   |
-| update            | Verify the changes to be applied before they are accepted       |
-| post-receive      | Trigger actions after a successful push to the repository       |
+|:-------------------:|-----------------------------------------------------------------|
+| **pre-receive**       | Accept or reject entire pushes based on predefined conditions   |
+| **update**            | Verify the changes to be applied before they are accepted       |
+| **post-receive**      | Trigger actions after a successful push to the repository       |
 
 
 
