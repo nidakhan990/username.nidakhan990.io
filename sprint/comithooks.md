@@ -158,6 +158,7 @@ Now we can write our scripts in different languages like Python, Bash, or Shell.
 
 
 
+- Once we have followed the above steps, we can choose which hook we want to alter or create. Below is a table describing each commit hook thoroughly:
 
 ### A. Client-Side Hooks
 1. **pre-commit**: The pre-commit hook runs on the git commit event. This can be used for Static analysis, Linting, Spell-checks, and Code style checks. It takes zero arguments and exiting with a non-zero status aborts the commit operation.
@@ -257,28 +258,23 @@ Output:
 The post-checkout hook works a lot like the post-commit hook, but it’s called whenever you successfully check out a reference with git checkout. This is nice for clearing out your working directory of generated files that would otherwise cause confusion.
 
 ![cht](https://github.com/opstree/spring3hibernate/assets/164150254/e5f2180e-65ad-4c3f-ba1a-39a49f77b2d6)
-
-
-
-### Pre-Rebase:
-The pre-rebase hook is called before git rebase changes anything, making it a good place to make sure something terrible isn’t about to happen.
-
-
-##  
-<tab><tab><pre><code>#!/bin/sh
-
-#Disallow all rebasing
-echo "pre-rebase: Rebasing is dangerous. Don't do it."
-exit 1
-</code></pre>
+| Hook Name            | Description                                                                                           | Code Snippet and Output Image                                                                                                                                                                                                                               |
+|----------------------|-------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Pre-Commit           | Runs before the commit is created. It allows you to inspect changes, run tests, or perform linting/formatting checks on the staged changes.                       | <details><summary>Show Code Snippet</summary><br>`````` #!/bin/bash <br> main() { <br> &nbsp;&nbsp;&nbsp;&nbsp;echo "This is a git hook" <br> &nbsp;&nbsp;&nbsp;&nbsp;exit 1 <br> } <br> main "$@" <br> <br> ![Pre-Commit](https://github.com/opstree/spring3hibernate/assets/164150254/5084fcce-c724-46b7-958c-6c9fdeb4f9e3)                   |
+| Prepare-Commit-Msg   | Invoked before the commit message editor is opened during a commit. It allows you to modify the default message.                                                 | <details><summary>Show Code Snippet</summary><br>```bash<br>``` #!/bin/python <br> import sys <br> def main(): <br> &nbsp;&nbsp;&nbsp;&nbsp;with open(sys.argv[1],'a+') as fp: <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fp.writelines(" and issue id is #1") <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sys.exit(0) <br> if __name__=="__main__": <br> &nbsp;&nbsp;&nbsp;&nbsp;main() <br> <br> ![Prepare-Commit-Msg](https://github.com/opstree/spring3hibernate/assets/153353850/f6d40ec2-39d8-4d7d-a38c-0e7bf0abd369)         |
+| Commit-Msg           | Runs after the user enters the commit message but before the commit is finalized. It validates commit messages.                                                   | Same as Prepare-Commit-Msg snippet                                                                                                                                                                                                            | N/A                                                                                                                                  |
+| Post-Commit          | Triggered after the commit is created. It's primarily used for notification purposes.                                                                               | <details><summary>Show Code Snippet</summary><br>```bash<br>```#!/usr/bin/env python <br> <br> import smtplib <br> from email.mime.text import MIMEText <br> from subprocess import check_output <br> <br> #Get the git log --stat entry of the new commit <br> log = check_output(['git', 'log', '-1', '--stat', 'HEAD']) <br> <br> #Create a plaintext email message <br> msg = MIMEText("Look, I'm actually doing some work:\n\n%s" % log) <br> <br> msg['Subject'] = 'Git post-commit hook notification' <br> msg['From'] = 'nidatanveer242@gmail.com' # Corrected the sender's email address <br> msg['To'] = 'nida.khan.snaatak@mygurukulam.co' <br> <br> #Send the message <br> SMTP_SERVER = 'smtp.gmail.com' <br> SMTP_PORT = 587 <br> <br> session = smtplib.SMTP(SMTP_SERVER, SMTP_PORT) <br> session.ehlo() <br> session.starttls() <br> session.ehlo() <br> session.login('nidatanveer242@gmail.com', 'gkhsolnzdhbshbhm') # Corrected the login method parameters <br> <br> session.sendmail(msg['From'], msg['To'], msg.as_string()) <br> session.quit() <br> <br> ![Post-Commit](https://github.com/opstree/spring3hibernate/assets/164150254/a146a8d6-f7bd-42d7-bb48-eef65de103b4)                 
+                                                                                         |                                                                                                                            
+| Post-Checkout        | Similar to post-commit but called after successful checkout using git checkout. Useful for cleaning up the working directory.                                        | <details><summary>Show Code Snippet</summary><br>```python<br>#!/usr/bin/env python<br><br>import sys, os, re<br>from subprocess import check_output<br><br>#Collect the parameters<br>previous_head = sys.argv[1]<br>new_head = sys.argv[2]<br>is_branch_checkout = sys.argv[3]<br><br>if is_branch_checkout == "0":<br>    print "post-checkout: This is a file checkout. Nothing to do."<br>    sys.exit(0)<br><br>print "post-checkout: Deleting all '.pyc' files in working directory"<br>for root, dirs, files in os.walk('.'):<br>    for filename in files:<br>        ext = os.path.splitext(filename)[1]<br>        if ext == '.pyc':<br>            os.unlink(os.path.join(root, filename))<br>```<br></details> ![Post-Checkout](https://github.com/opstree/spring3hibernate/assets/164150254/e5f2180e-65ad-4c3f-ba1a-39a49f77b2d6)
 
 
 
 
 
-Output:
 
-![rebase](https://github.com/opstree/spring3hibernate/assets/164150254/ba1ff13e-edbf-4955-90b1-a6569f3c5b69)
+
+
+| Pre-Rebase           | Executed before git rebase changes anything. It's useful for preventing potentially harmful rebases.                                                               |<details><summary>Show Code Snippet</summary><br>```bash<br> ``` #!/bin/sh <br> #Disallow all rebasing <br> echo "pre-rebase: Rebasing is dangerous. Don't do it." <br> exit 1 <br> <br> ![Pre-Rebase](https://github.com/opstree/spring3hibernate/assets/164150254/ba1ff13e-edbf-4955-90b1-a6569f3c5b69)                    |
 
 
 
@@ -320,3 +316,7 @@ and the new object name to be stored in the ref.
 | |
 |Githooks |https://git-scm.com/docs/githooks
 |
+
+
+
+
