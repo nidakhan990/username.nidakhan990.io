@@ -54,7 +54,7 @@ Hooks reside in the .git/hooks directory of every Git repository. Git automatica
 
 In order to use git hooks, we must follow some steps first to enable them which are as follows:
 
-1. Step A: First we need to change our directory to the below directory as follows:
+1. **Step A**: First we need to change our directory to the below directory as follows:
 
 ##  
 <tab><tab><pre><code> cd repository/.git/hooks </code></pre>
@@ -67,7 +67,7 @@ If you take a look inside the directory you will see:
 These represent most of the available hooks, but the .sample extension prevents them from executing by default. To “install” a hook, all you have to do is remove the .sample extension. Or, if you’re writing a new script from scratch, you can simply add a new file matching one of the above filenames, minus the .sample extension.
 
 
-2. Step B: To use a hook first we need to enable it and to enable a hook we have to remove the .sample extension from the end of the files. In order to do so, we can use the following command as follows:
+2. **Step B**: To use a hook first we need to enable it and to enable a hook we have to remove the .sample extension from the end of the files. In order to do so, we can use the following command as follows:
 
 ##  
 <tab><tab><pre><code> mv hookname.sample hookname </code></pre>
@@ -77,7 +77,7 @@ Below is a terminal window screenshot depicting the same as follows:
 
 
 
-3. Step C: After that, we have to provide the execute permission for the hook. To do so we can use the following command as follows:
+3. **Step C**: After that, we have to provide the execute permission for the hook. To do so we can use the following command as follows:
 
 ##  
 <tab><tab><pre><code> chmod +x hookname </code></pre>
@@ -85,16 +85,12 @@ Below is a terminal window screenshot depicting the same as follows:
 
 Now we can write our scripts in different languages like Python, Bash, or Shell. In order to write a script first, you need to specify that in the first line of the script.
 
-The first line of the script will be:
-#### A. Python
+| Scripting Language | First Line Example       |
+|--------------------|--------------------------|
+| Python             | `#!/usr/bin/env python`  |
+| Shell              | `#!/bin/sh`              |
+| Bash               | `#!/bin/bash`            |
 
-`#!/usr/bin/env python`
-####  B. Shell
-
-`#!/bin/sh`
-####  C. Bash
-
-`#!/bin/bash` 
 
 
 
